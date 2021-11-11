@@ -1,0 +1,55 @@
+query shows(
+  $siteId: [String]
+  $search: String = null
+  $productionType: Int = null
+  $startDateTime: [QueryArgument]
+  $label: [String] = null
+  $productionThemeId: Int = null
+  $language: String = null
+) {
+  shows(
+    site: $siteId
+    productionThemeId: $productionThemeId
+    productionType: $productionType
+    search: $search
+    startDateTime: $startDateTime
+    label: $label
+    language: $language
+  ) {
+    ... on show_show_Entry {
+      id
+      language
+      startDateTime
+        @formatDateTime(format: "Y-m-d H:i", timezone: "Europe/Amsterdam")
+      endDateTime
+        @formatDateTime(format: "Y-m-d H:i", timezone: "Europe/Amsterdam")
+      cinemaRoom
+      ticketStatus(label: true)
+      production {
+        ... on production_production_Entry {
+          image {
+            url
+          }
+          poster {
+            url
+          }
+          title
+          slug
+          year
+          director
+          length
+          itemIntroText
+          mainTheme {
+            title
+          }
+          tag {
+            title
+          }
+          tagline
+          ticketStatus(label: true)
+          primaryLanguage
+        }
+      }
+    }
+  }
+}

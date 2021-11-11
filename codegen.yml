@@ -1,0 +1,12 @@
+overwrite: true
+schema: "https://www.eyefilm.nl/graphql"
+documents: "src/**/*.graphql"
+generates:
+  src/server/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
