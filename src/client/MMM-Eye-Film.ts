@@ -1,34 +1,7 @@
 /// <reference path="../../../../node_modules/moment/moment.d.ts" />
 
 import { EyeFilmNotifications } from "../types/EyeFilmNotifications";
-
-type ModuleProperties = {
-  defaults?: object;
-  start?(): void;
-  getHeader?(): string;
-  getTemplate?(): string;
-  getTemplateData?(): object;
-  notificationReceived?(
-    notification: string,
-    payload: any,
-    sender: object
-  ): void;
-  socketNotificationReceived?(notification: string, payload: any): void;
-  suspend?(): void;
-  resume?(): void;
-  getDom?(): HTMLElement;
-  getStyles?(): string[];
-  [key: string]: any;
-};
-
-declare const Module: {
-  register(moduleName: string, moduleProperties: ModuleProperties): void;
-};
-
-declare const Log: {
-  log(text: string): void;
-  info(text: string): void;
-};
+import { Module } from "../types/module-types";
 
 declare const moment: any;
 
@@ -52,6 +25,9 @@ interface Show {
 
 Module.register("MMM-Eye-Film", {
   requiresVersion: "2.12.0",
+
+  shows: [] as Show[],
+  error: null as null | string,
 
   // Default module config.
   defaults: {
@@ -78,9 +54,6 @@ Module.register("MMM-Eye-Film", {
 
     this.sendSocketNotification("REFRESH_SHOWS", notificationPayload);
   },
-
-  shows: [],
-  error: null,
 
   getDom: function () {
     return this.getTable();

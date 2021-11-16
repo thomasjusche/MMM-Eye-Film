@@ -8,16 +8,7 @@ interface RefreshShowsNotificationPayload {
   siteId: string;
 }
 
-declare const Log: {
-  log(text: string): void;
-  info(text: string): void;
-};
-
 module.exports = NodeHelper.create({
-  start(): void {
-    // this.getShows(new Date().toISOString(), new Date(new Date().setHours(23, 59)).toISOString());
-  },
-
   socketNotificationReceived<T extends RefreshShowsNotificationPayload>(
     notification: string,
     payload: T
