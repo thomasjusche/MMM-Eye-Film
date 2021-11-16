@@ -1,5 +1,6 @@
 const NodeHelper = require("node_helper");
 import fetchShows from "./api";
+import { EyeFilmNotifications } from "../types/EyeFilmNotifications";
 
 interface RefreshShowsNotificationPayload {
   startDateTime: string;
@@ -21,7 +22,7 @@ module.exports = NodeHelper.create({
     notification: string,
     payload: T
   ): void {
-    if (notification === "REFRESH_SHOWS") {
+    if (notification === EyeFilmNotifications.REFRESH_SHOWS) {
       this.getShows(payload.startDateTime, payload.endDateTime, payload.siteId);
     }
   },
@@ -33,14 +34,14 @@ module.exports = NodeHelper.create({
   ) {
     try {
       const shows = await fetchShows(startDateTime, endDateTime, siteId);
-      this.sendSocketNotification("EYE_FILM_SHOWS", {
+      this.sendSocketNotification(EyeFilmNotifications.EYE_FILM_SHOWS, {
         id: this.name,
         shows,
         error: null
       });
     } catch (e) {
       console.error(e);
-      this.sendSocketNotification("EYE_FILM_ERROR", {
+      this.sendSocketNotification(EyeFilmNotifications.EYE_FILM_ERROR, {
         id: this.name,
         shows: [],
         error: (e as any).toString()

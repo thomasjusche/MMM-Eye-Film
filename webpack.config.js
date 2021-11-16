@@ -17,7 +17,10 @@ const clientConfig = {
     rules: [
       {
         test: /\.ts$/,
-        include: [path.resolve(__dirname, "src/client")],
+        include: [
+          path.resolve(__dirname, "src/client"),
+          path.resolve(__dirname, "src/types")
+        ],
         loader: "awesome-typescript-loader"
       }
     ]
@@ -46,7 +49,10 @@ const serverConfig = {
     rules: [
       {
         test: /\.ts$/,
-        include: [path.resolve(__dirname, "src/server")],
+        include: [
+          path.resolve(__dirname, "src/server"),
+          path.resolve(__dirname, "src/types")
+        ],
         loader: "awesome-typescript-loader"
       }
     ]

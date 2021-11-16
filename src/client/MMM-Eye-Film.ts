@@ -1,5 +1,7 @@
 /// <reference path="../../../../node_modules/moment/moment.d.ts" />
 
+import { EyeFilmNotifications } from "../types/EyeFilmNotifications";
+
 type ModuleProperties = {
   defaults?: object;
   start?(): void;
@@ -60,11 +62,14 @@ Module.register("MMM-Eye-Film", {
   },
 
   start() {
-    this.sendNotification();
-    setInterval(() => this.sendNotification(), this.config.refreshInterval);
+    this.sendRefreshNotification();
+    setInterval(
+      () => this.sendRefreshNotification(),
+      this.config.refreshInterval
+    );
   },
 
-  sendNotification: function () {
+  sendRefreshNotification: function () {
     const notificationPayload = {
       startDateTime: this.config.getStartTime(),
       endDateTime: this.config.getEndTime(),
@@ -101,12 +106,12 @@ Module.register("MMM-Eye-Film", {
 
   socketNotificationReceived(notification, payload) {
     switch (notification) {
-      case "EYE_FILM_SHOWS":
+      case EyeFilmNotifications.EYE_FILM_SHOWS:
         this.removeError();
         this.setShows(payload.shows);
         this.updateDom();
         break;
-      case "EYE_FILM_ERROR":
+      case EyeFilmNotifications.EYE_FILM_ERROR:
         this.setError(payload.error);
         this.updateDom();
         break;
