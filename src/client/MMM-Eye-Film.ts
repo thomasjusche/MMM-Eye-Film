@@ -52,7 +52,10 @@ Module.register("MMM-Eye-Film", {
       siteId: this.translate("siteId")
     };
 
-    this.sendSocketNotification("REFRESH_SHOWS", notificationPayload);
+    this.sendSocketNotification(
+      EyeFilmNotifications.REFRESH_SHOWS,
+      notificationPayload
+    );
   },
 
   getDom: function () {
@@ -123,7 +126,7 @@ Module.register("MMM-Eye-Film", {
     const shows = this.shows.slice(0, this.config.maxEntries);
 
     shows.forEach((show: Show) => {
-      const production = show.production![0] as Production;
+      const production = show.production[0];
 
       if (show.ticketStatus !== "Available") {
         return;
