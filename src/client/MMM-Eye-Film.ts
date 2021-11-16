@@ -140,7 +140,7 @@ Module.register("MMM-Eye-Film", {
       errorRow.classList.add("xsmall");
 
       const errorCell = document.createElement("td");
-      errorCell.colSpan = 3;
+      errorCell.colSpan = 2;
       errorCell.innerText = this.error;
 
       errorRow.appendChild(errorCell);
@@ -151,38 +151,29 @@ Module.register("MMM-Eye-Film", {
 
     shows.forEach((show: Show) => {
       const production = show.production![0] as Production;
+
       if (show.ticketStatus !== "Available") {
         return;
       }
-      const mainTheme = production.mainTheme!.map((theme) => theme!.title);
-      const tags = production.tag!.map((tag) => tag!.title);
-      // const prefix = [...mainTheme, ...tags].join(", ");
-      const prefix = mainTheme.join(", ");
 
       const tableRow = document.createElement("tr");
       const tableRow2 = document.createElement("tr");
 
-      const titleCell = document.createElement("td");
-      const prefixCell = document.createElement("td");
       const startTimeCell = document.createElement("td");
-      const taglineCell = document.createElement("td");
-
-      titleCell.innerText = production.title;
-      titleCell.classList.add("bright");
-
-      prefixCell.innerText = prefix;
-      prefixCell.classList.add("no-wrap");
-
       startTimeCell.innerText = moment(show.startDateTime).calendar();
       startTimeCell.classList.add("no-wrap", "start-time");
 
+      const titleCell = document.createElement("td");
+      titleCell.innerText = production.title;
+      titleCell.classList.add("bright");
+
+      const taglineCell = document.createElement("td");
       taglineCell.innerText = production.tagline;
       taglineCell.classList.add("tagline", "xsmall");
-      taglineCell.colSpan = 3;
+      taglineCell.colSpan = 2;
 
       tableRow.appendChild(startTimeCell);
       tableRow.appendChild(titleCell);
-      // tableRow.appendChild(prefixCell);
 
       tableRow2.appendChild(taglineCell);
 
