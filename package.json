@@ -2,14 +2,14 @@
   "name": "mmm-eye-film",
   "version": "1.0.0",
   "description": "Plugin to show the movies currently playing in the Eye filmmuseum on a Magic Mirror",
-  "main": "index.js",
+  "main": "MMM-Eye-Film.js",
   "scripts": {
     "build": "webpack --progress --profile --bail",
     "dev": "npm run build -- --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "graphql-codegen --config codegen.yml"
   },
-  "author": "",
+  "author": "Thomas Jüsche",
   "license": "MIT",
   "dependencies": {
     "graphql": "^15.6.0",
