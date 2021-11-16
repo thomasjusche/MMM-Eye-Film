@@ -2,7 +2,7 @@
 
 Magic mirror module to see which movies are playing in the [Eye Film Museum](https://www.eyefilm.nl/).
 
-This plugin uses the GraphQL API the website uses too, no additional API keys are required.
+This plugin uses the GraphQL API the website uses too, no API keys are required.
 
 ![Picture of the plugin showing todays movies](img/eye-film.png)
 
