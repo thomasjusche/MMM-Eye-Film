@@ -1,6 +1,6 @@
 # MMM-Eye-Film
 
-Magic mirror module to see which movies are playing in the [Eye Film Museum](https://www.eyefilm.nl/).
+[Magic Mirror](https://github.com/MichMich/MagicMirror) module to see which movies are playing in the [Eye Film Museum](https://www.eyefilm.nl/).
 
 This plugin uses the GraphQL API the website uses too, no API keys are required.
 
