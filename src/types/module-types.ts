@@ -35,3 +35,5 @@ export declare const Log: {
   timeEnd(timerName?: string): void;
   timeStamp(timerName?: string): void;
 };
+
+export default Module;

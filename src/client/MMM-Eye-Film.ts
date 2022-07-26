@@ -1,7 +1,7 @@
 /// <reference path="../../../../node_modules/moment/moment.d.ts" />
 
 import { EyeFilmNotifications } from "../types/EyeFilmNotifications";
-import { Module } from "../types/module-types";
+import Module from "../types/module-types";
 
 declare const moment: any;
 

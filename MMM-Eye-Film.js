@@ -1,1 +1,115 @@
-(()=>{"use strict";var t={655:(t,e)=>{var i;Object.defineProperty(e,"__esModule",{value:!0}),e.EyeFilmNotifications=void 0,(i=e.EyeFilmNotifications||(e.EyeFilmNotifications={})).REFRESH_SHOWS="REFRESH_SHOWS",i.EYE_FILM_SHOWS="EYE_FILM_SHOWS",i.EYE_FILM_ERROR="EYE_FILM_ERROR"},968:(t,e)=>{Object.defineProperty(e,"__esModule",{value:!0})}},e={};function i(n){var s=e[n];if(void 0!==s)return s.exports;var r=e[n]={exports:{}};return t[n](r,r.exports,i),r.exports}(()=>{const t=i(655);Module.register("MMM-Eye-Film",{requiresVersion:"2.12.0",shows:[],error:null,defaults:{refreshInterval:6e5,maxEntries:20,getStartTime:()=>moment().toISOString(),getEndTime:()=>moment().endOf("day").toISOString()},start(){this.sendRefreshNotification(),setInterval((()=>this.sendRefreshNotification()),this.config.refreshInterval)},sendRefreshNotification:function(){const e={startDateTime:this.config.getStartTime(),endDateTime:this.config.getEndTime(),siteId:this.translate("siteId")};this.sendSocketNotification(t.EyeFilmNotifications.REFRESH_SHOWS,e)},getDom:function(){return this.getTable()},getHeader:function(){return this.translate("TODAY_IN_EYE")},getScripts:function(){return["moment.js"]},getStyles:()=>["MMM-Eye-Film.css"],getTranslations:function(){return{en:"translations/en.json",nl:"translations/nl.json"}},socketNotificationReceived(e,i){switch(e){case t.EyeFilmNotifications.EYE_FILM_SHOWS:this.removeError(),this.setShows(i.shows),this.updateDom();break;case t.EyeFilmNotifications.EYE_FILM_ERROR:this.setError(i.error),this.updateDom()}},setShows(t){this.shows=t},setError(t){this.error=t},removeError(){this.setError(null)},getTable(){const t=document.createElement("table");if(t.classList.add("eye-film-table","light","small"),this.error){const e=document.createElement("tr");e.classList.add("xsmall");const i=document.createElement("td");i.colSpan=2,i.innerText=this.error,e.appendChild(i),t.appendChild(e)}return this.shows.slice(0,this.config.maxEntries).forEach((e=>{const i=e.production[0];if("Available"!==e.ticketStatus)return;const n=document.createElement("tr"),s=document.createElement("tr"),r=document.createElement("td");r.innerText=moment(e.startDateTime).calendar(),r.classList.add("no-wrap","start-time");const o=document.createElement("td");o.innerText=i.title,o.classList.add("bright");const a=document.createElement("td");a.innerText=i.tagline,a.classList.add("tagline","xsmall"),a.colSpan=2,n.appendChild(r),n.appendChild(o),s.appendChild(a),t.appendChild(n),t.appendChild(s)})),t}})})()})();
+var EyeFilmNotifications;
+(function (EyeFilmNotifications) {
+    EyeFilmNotifications["REFRESH_SHOWS"] = "REFRESH_SHOWS";
+    EyeFilmNotifications["EYE_FILM_SHOWS"] = "EYE_FILM_SHOWS";
+    EyeFilmNotifications["EYE_FILM_ERROR"] = "EYE_FILM_ERROR";
+})(EyeFilmNotifications || (EyeFilmNotifications = {}));
+
+// Copy of MagicMirror/modules-types.ts, here so the typescript compiler can find it when building
+var Module$1 = Module;
+
+/// <reference path="../../../../node_modules/moment/moment.d.ts" />
+Module$1.register("MMM-Eye-Film", {
+    requiresVersion: "2.12.0",
+    shows: [],
+    error: null,
+    // Default module config.
+    defaults: {
+        refreshInterval: 10 * 60 * 1000,
+        maxEntries: 20,
+        getStartTime: () => moment().toISOString(),
+        getEndTime: () => moment().endOf("day").toISOString()
+    },
+    start() {
+        this.sendRefreshNotification();
+        setInterval(() => this.sendRefreshNotification(), this.config.refreshInterval);
+    },
+    sendRefreshNotification: function () {
+        const notificationPayload = {
+            startDateTime: this.config.getStartTime(),
+            endDateTime: this.config.getEndTime(),
+            siteId: this.translate("siteId")
+        };
+        this.sendSocketNotification(EyeFilmNotifications.REFRESH_SHOWS, notificationPayload);
+    },
+    getDom: function () {
+        return this.getTable();
+    },
+    getHeader: function () {
+        return this.translate("TODAY_IN_EYE");
+    },
+    getScripts: function () {
+        return ["moment.js"];
+    },
+    getStyles: () => {
+        return ["MMM-Eye-Film.css"];
+    },
+    getTranslations: function () {
+        return {
+            en: "translations/en.json",
+            nl: "translations/nl.json"
+        };
+    },
+    socketNotificationReceived(notification, payload) {
+        console.log(notification);
+        switch (notification) {
+            case EyeFilmNotifications.EYE_FILM_SHOWS:
+                this.removeError();
+                this.setShows(payload.shows);
+                this.updateDom();
+                break;
+            case EyeFilmNotifications.EYE_FILM_ERROR:
+                this.setError(payload.error);
+                this.updateDom();
+                break;
+            //
+        }
+    },
+    setShows(shows) {
+        this.shows = shows;
+    },
+    setError(error) {
+        this.error = error;
+    },
+    removeError() {
+        this.setError(null);
+    },
+    getTable() {
+        const table = document.createElement("table");
+        table.classList.add("eye-film-table", "light", "small");
+        if (this.error) {
+            const errorRow = document.createElement("tr");
+            errorRow.classList.add("xsmall");
+            const errorCell = document.createElement("td");
+            errorCell.colSpan = 2;
+            errorCell.innerText = this.error;
+            errorRow.appendChild(errorCell);
+            table.appendChild(errorRow);
+        }
+        const shows = this.shows.slice(0, this.config.maxEntries);
+        shows.forEach((show) => {
+            const production = show.production[0];
+            if (show.ticketStatus !== "Available") {
+                return;
+            }
+            const tableRow = document.createElement("tr");
+            const tableRow2 = document.createElement("tr");
+            const startTimeCell = document.createElement("td");
+            startTimeCell.innerText = moment(show.startDateTime).calendar();
+            startTimeCell.classList.add("no-wrap", "start-time");
+            const titleCell = document.createElement("td");
+            titleCell.innerText = production.title;
+            titleCell.classList.add("bright");
+            const taglineCell = document.createElement("td");
+            taglineCell.innerText = production.tagline;
+            taglineCell.classList.add("tagline", "xsmall");
+            taglineCell.colSpan = 2;
+            tableRow.appendChild(startTimeCell);
+            tableRow.appendChild(titleCell);
+            tableRow2.appendChild(taglineCell);
+            table.appendChild(tableRow);
+            table.appendChild(tableRow2);
+        });
+        return table;
+    }
+});
