@@ -41,10 +41,6 @@ npm install
 
 This will show 30 movies which start at 16:00 or later today.
 
-## Credits
-
-Used the `webpack.config.js` from [MMM-awesome-alexa](https://github.com/dolanmiu/MMM-awesome-alexa)
-
 ---
 
 ## LICENSE
