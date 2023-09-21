@@ -12,7 +12,7 @@
   "author": "Thomas Jüsche",
   "license": "MIT",
   "dependencies": {
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-request": "^5.1.0"
   },
   "devDependencies": {
