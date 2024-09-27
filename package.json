@@ -25,6 +25,6 @@
     "@graphql-codegen/typescript-operations": "2.5.11",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-typescript": "^10.0.1",
-    "rollup": "^2.67.0"
+    "rollup": "^2.79.2"
   }
 }
